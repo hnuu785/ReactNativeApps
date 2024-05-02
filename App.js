@@ -11,16 +11,34 @@ export default function App() {
   
   const [walls, setWalls] = useState([]);
 
+  const [p1HC, setP1HC] = useState(10);
+  const [p1VC, setP1VC] = useState(10);
+  const [p2HC, setP2HC] = useState(10);
+  const [p2VC, setP2VC] = useState(10);
+
   const renderHor = () => {
     const hor = [];
     for (let i = 1; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         hor.push(
           <TouchableWithoutFeedback key={`${i}-${j}`} onPress={() => {
-            setWalls(currentWalls => [...currentWalls, <View style={{...styles.horWall, left: j * 40, top: i * 40}}>
-            </View>]);
+            if (turn == 0 && p1HC > 0) {
+              console.log(p1HC);
+              setWalls(currentWalls => [...currentWalls,
+              <View style={{...styles.horWall, left: j * 40, top: i * 40}}></View>]);
+              setP1HC(p1HC - 1);
+              setTurn(1);
+            }
+            else if (turn == 1 && p2HC > 0) {
+              setWalls(currentWalls => [...currentWalls,
+              <View style={{...styles.horWall, left: j * 40, top: i * 40}}></View>]);
+              console.log(p2HC);
+              setP2HC(p2HC - 1);
+              setTurn(0);
+            }
           }}>
-          <View style={{...styles.fieldHor, left: j * 40, top: i * 40}}></View></TouchableWithoutFeedback>);
+          <View style={{...styles.fieldHor, left: j * 40, top: i * 40}}></View>
+          </TouchableWithoutFeedback>);
       }
     }
     return hor;
@@ -32,10 +50,21 @@ export default function App() {
       for (let j = 0; j < 9; j++) {
         ver.push(
           <TouchableWithoutFeedback key={`${i}-${j}`} onPress={() => {
-            setWalls(currentWalls => [...currentWalls, <View style={{...styles.verWall, left: i * 40, top: j * 40}}>
-            </View>]);
+            if (turn == 0 && p1VC > 0) {
+              setWalls(currentWalls => [...currentWalls, 
+              <View style={{...styles.verWall, left: i * 40, top: j * 40}}></View>]);
+              setP1VC(p1VC - 1);
+              setTurn(1);
+            }
+            else if (turn == 1 && p2VC > 0) {
+              setWalls(currentWalls => [...currentWalls, 
+              <View style={{...styles.verWall, left: i * 40, top: j * 40}}></View>]);
+              setP2VC(p2VC - 1);
+              setTurn(0);
+            }
           }}>
-          <View style={{...styles.fieldVer, left: i * 40, top: j * 40}}></View></TouchableWithoutFeedback>);
+          <View style={{...styles.fieldVer, left: i * 40, top: j * 40}}></View>
+          </TouchableWithoutFeedback>);
       }
     }
     return ver;
@@ -87,7 +116,7 @@ export default function App() {
       <>
         <Image style={{...styles.pawn, left: p1x, top: p1y}} source={{uri: 'https://snack-code-uploads.s3.us-west-1.amazonaws.com/~asset/b01ef9b4f2c29b730c5dd509f0dc36d2'}}/>
         <Image style={{...styles.pawn, left: p2x, top: p2y}} source={{uri: 'https://snack-code-uploads.s3.us-west-1.amazonaws.com/~asset/90b77e5979766ced2ece86cb02713f1d'}}/>
-        {turn == 0 && isBlocked ? (
+        {turn == 0 ? (
           <TouchableWithoutFeedback onPress={playerMoveRight}>
             <View style={{ ...styles.moveTile, left: p1x + 40, top: p1y }}></View>
           </TouchableWithoutFeedback>
