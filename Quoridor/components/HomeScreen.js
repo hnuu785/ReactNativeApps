@@ -12,7 +12,7 @@ export default function App({ navigation }) {
       <TouchableWithoutFeedback onPress={() => navigation.navigate('Singleplay')}><Text style={styles.playMenuText}>
         Singleplay
       </Text></TouchableWithoutFeedback>
-      <TouchableWithoutFeedback onPress={() => navigation.navigate('Multiplay')}><Text style={styles.playMenuText}>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('CreateNameStack')}><Text style={styles.playMenuText}>
         Multiplay
       </Text></TouchableWithoutFeedback>
     </View>
@@ -39,11 +39,11 @@ const styles = StyleSheet.create({
   },
   playMenuText: {
     textAlign: 'center',
-    marginVertical: 50,
+    marginVertical: 40,
     fontSize: 30,
     borderRadius: 20,
     borderWidth: 10,
     borderColor: 'black',
-    backgroundColor: 'teal',
+    marginHorizontal: 30,
   },
 });
